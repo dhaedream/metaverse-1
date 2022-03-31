@@ -20,4 +20,7 @@ contract Land is ERC721 {
         uint256 sizeY;
         uint256 sizeZ;
     }
+
+    // making array called buildings to contain each struct Buiding
+    Building[] public buildings;
 }
