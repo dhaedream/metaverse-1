@@ -47,16 +47,23 @@ contract Land is ERC721 {
         uint256 supply = totalSupply;
         require(supply <= maxSupply);
         require(buildings[_id -1].owner == address(0x0));
-        require(msg.value >= 1ether);
-        //_id - 1 : to specify the land you want to but 
-        // assigning new owner to the address that called function 
+        require(msg.value >= 1ether);      
         buildings[_id - 1].owner = msg.sender;
-        // adding 1 count to total supply 
-        // couldve named this totalPurchased 
         totalSupply = totalSupply + 1;
-        // from openzepplin. handles buying or nft land
         _safeMint(msg.sender, _id);
     }
 
+
+    // function to handle purchase + transfer nft to new owner
+    function transferFrom (
+        // paramaters needed to complete transfer
+        address from,
+        address to,
+        uint256 tokenId
+        // override to... access openzeppelin
+        //from my understanding. research later
+    ) public override {
+        
+    }
 
 }
