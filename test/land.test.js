@@ -20,6 +20,15 @@ contract("Land", () => {
     land = await Land.new(NAME, SYMBOL, COST);
   });
 
-  // first test is the deployment to check vars are set to expectations
-  describe("Deployment");
+  // first test is the deployment to
+  //verify that vars are set to expectations
+  //"describe" runs many test described by "it"
+  describe("Deployment", () => {
+    //   takes in what it does + test function that calls name var
+    it("returns contract name", async () => {
+      //access smart contract "land" + call name var
+      //awaiting "beforeEach" then result should equal name
+      result = await land.name();
+    });
+  });
 });
