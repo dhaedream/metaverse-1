@@ -60,10 +60,22 @@ contract Land is ERC721 {
         address from,
         address to,
         uint256 tokenId
-        // override to... access openzeppelin
+        // override used to... access openzeppelin
         //from my understanding. research later
     ) public override {
-        
+        //requires that owner is verified + approved transaction
+        require (
+                              //using msgSender as function bc 
+                              //we pulling it from outside function
+                              //will return error msg if false     
+            _iSApprovedOrOwner(_msgSender(), tokenId)
+            "ERC721: transfer caller is not owner nor approved"
+        );
+        //if that works, access building buyer + assign it as to
+        buildings[tokenId -1].owner = to;
+        //make transfer
+        _transfer(from, to, tokenId)
+
     }
 
 }
