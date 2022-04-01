@@ -84,18 +84,11 @@ contract Land is ERC721 {
         _safeTransfer(from, to, tokenId)
     }
 
-    // return array of buildings 
-    // view bc function is reading data + no transaction
-                                    // returning array, w datatype as paramater
-                                    //memory goes with strings + arrays
     function getBuildings() public view returns(Building[] memory) {
         return buildings;
     }
     
-    // return single building of transaction
     function getBuildings( uint256 _id) public view returns(Building memory) {
-        //return the building of current building in transaction
-        //Solidity _id starts at 1 + array starts at 0
         return buildings[_id - 1];
     }
 
