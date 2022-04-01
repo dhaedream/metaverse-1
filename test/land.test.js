@@ -1,5 +1,8 @@
 const Land = artifacts.require("./Land");
 
+//require chai
+require("chai").use(require("chai-as-promised")).should();
+
 // takes 2 vars, contract name
 // and the test function that will run
 contract("Land", () => {
@@ -29,6 +32,8 @@ contract("Land", () => {
       //access smart contract "land" + call name var
       //awaiting "beforeEach" then result should equal name
       result = await land.name();
+      //using chai keyword shoud for test
+      result.should.equal(NAME);
     });
   });
 });
