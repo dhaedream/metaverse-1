@@ -42,20 +42,20 @@ contract Land is ERC721 {
             Building("Vegan Restaurant", address(0x0), -10, 0, 0, 5, 25, 5)
         );
     }
-    //function is reusable code to be called whenever needed
-    //to mint/buy land
-    //public: anybody can call it
-    //payable: can send currency to function
+
     function mint(uint256 _id) public payable {
-        // to make sure land is available 
         uint256 supply = totalSupply;
-        // require checks for condition in order to run function
-        // supply must be less than maxSupply which is total available buildings 
         require(supply <= maxSupply);
-        // make sure building owner = 0x0
         require(buildings[_id -1].owner == address(0x0));
-        // making sure ether sent to payable function is equal/greater than to cost
         require(msg.value >= 1ether);
+        //_id - 1 : to specify the land you want to but 
+        // assigning new owner to the address that called function 
+        buildings[_id - 1].owner = msg.sender;
+        // adding 1 count to total supply 
+        // couldve named this totalPurchased 
+        totalSupply = totalSupply + 1;
+        // from openzepplin. handles buying or nft land
+        _safeMint(msg.sender, _id);
     }
 
 
