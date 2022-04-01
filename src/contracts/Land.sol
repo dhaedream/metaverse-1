@@ -1,8 +1,8 @@
 // SPDX-License-Idenifier: MIT
-
 pragma solidity ^0.8.0;
 
-import  "@openzeppelin/contracts/token/ERC721/ERC721.sol"
+import  "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+
 contract Land is ERC721 {
 
     uint256 public cost = 1 ether;
@@ -24,7 +24,7 @@ contract Land is ERC721 {
 
     Building[] public buildings;
 
-    constructor(string memory _name, string memory _symbol, uint265 _cost ) ERC721(_name, _symbol) {
+    constructor(string memory _name, string memory _symbol, uint256 _cost ) ERC721(_name, _symbol) {
         cost = _cost;
         buildings.push(
             Building("City Hall", address(0x0), 0, 0, 0, 10, 10, 10)
@@ -47,7 +47,7 @@ contract Land is ERC721 {
         uint256 supply = totalSupply;
         require(supply <= maxSupply);
         require(buildings[_id -1].owner == address(0x0));
-        require(msg.value >= 1ether);      
+        require(msg.value >= 1 ether);      
         buildings[_id - 1].owner = msg.sender;
         totalSupply = totalSupply + 1;
         _safeMint(msg.sender, _id);
@@ -55,33 +55,39 @@ contract Land is ERC721 {
 
 
     // function to handle purchase + transfer nft to new owner
-    function transferFrom (
+    function transferFrom(
         address from,
         address to,
         uint256 tokenId
     ) public override {
-        require (
-           _iSApprovedOrOwner(_msgSender(), tokenId)
+        require(
+            _isApprovedOrOwner(_msgSender(), tokenId),
             "ERC721: transfer caller is not owner nor approved"
         );
-        buildings[tokenId -1].owner = to;
-        _transfer(from, to, tokenId)
+
+        // Update Building ownership
+        buildings[tokenId - 1].owner = to;
+
+        _transfer(from, to, tokenId);
     }
+
     
     //make safe transfer ?
-    function safeTransferFrom (
+      function safeTransferFrom(
         address from,
         address to,
         uint256 tokenId,
-        //extra param .... 
         bytes memory _data
     ) public override {
-        require (
-            _iSApprovedOrOwner(_msgSender(), tokenId)
+        require(
+            _isApprovedOrOwner(_msgSender(), tokenId),
             "ERC721: transfer caller is not owner nor approved"
         );
-        buildings[tokenId -1].owner = to;
-        _safeTransfer(from, to, tokenId)
+
+        // Update Building ownership
+        buildings[tokenId - 1].owner = to;
+
+        _safeTransfer(from, to, tokenId, _data);
     }
 
     function getBuildings() public view returns(Building[] memory) {
