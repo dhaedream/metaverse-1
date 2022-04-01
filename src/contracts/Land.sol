@@ -67,27 +67,23 @@ contract Land is ERC721 {
         buildings[tokenId -1].owner = to;
         _transfer(from, to, tokenId)
     }
-
-     function safeTransferFrom (
-        // paramaters needed to complete transfer
+    
+    //make safe transfer ?
+    function safeTransferFrom (
         address from,
         address to,
-        uint256 tokenId
-        // override used to... access openzeppelin
-        //from my understanding. research later
+        uint256 tokenId,
+        //extra param .... 
+        bytes memory _data
     ) public override {
-        //requires that owner is verified + approved transaction
         require (
-                              //using msgSender as function bc 
-                              //we pulling it from outside function
-                              //will return error msg if false     
             _iSApprovedOrOwner(_msgSender(), tokenId)
             "ERC721: transfer caller is not owner nor approved"
         );
-        //if that works, access building buyer + assign it as to
         buildings[tokenId -1].owner = to;
-        //make transfer
-        _transfer(from, to, tokenId)
+        _safeTransfer(from, to, tokenId)
     }
+
+    
 
 }
