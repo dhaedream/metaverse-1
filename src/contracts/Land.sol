@@ -56,6 +56,19 @@ contract Land is ERC721 {
 
     // function to handle purchase + transfer nft to new owner
     function transferFrom (
+        address from,
+        address to,
+        uint256 tokenId
+    ) public override {
+        require (
+           _iSApprovedOrOwner(_msgSender(), tokenId)
+            "ERC721: transfer caller is not owner nor approved"
+        );
+        buildings[tokenId -1].owner = to;
+        _transfer(from, to, tokenId)
+    }
+
+     function safeTransferFrom (
         // paramaters needed to complete transfer
         address from,
         address to,
@@ -75,7 +88,6 @@ contract Land is ERC721 {
         buildings[tokenId -1].owner = to;
         //make transfer
         _transfer(from, to, tokenId)
-
     }
 
 }
