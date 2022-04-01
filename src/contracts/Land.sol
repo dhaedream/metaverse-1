@@ -23,19 +23,15 @@ contract Land is ERC721 {
 
     Building[] public buildings;
 
-    // a constructor in sol contracts is a function 
-    // that gets called with the contract
-
-    // we specify the name of our nft in _name var
-    // we specify the symbol of our nft in _symbol var
-
-    // memory (which is not persisting + very temporary)
-    // storage(where the state variables are held)
-
-    // calling ERC721 constructor simultaneously. it takes name + symbol vars  
-
     constructor(string memory _name, string memory _symbol, uint265 _cost ) ERC721(_name, _symbol) {
-        
+        // assigning constructor var to struct Building var 
+        cost = _cost;
+        // accessing buildings array var 
+        buildings.push(
+            //Defining Building with struct values.
+            //Address = 0x0 bc nobody owns it
+            Building("City Hall", address(0x0), 0, 0, 0, 10, 10, 10)
+        );
     }
 
 }
