@@ -7,14 +7,14 @@ const EVM_REVERT = "VM Exception while processing transaction: revert";
 
 // takes 2 vars, contract name
 // and the test function that will run
-//owners from ganache for spending test ether
+//owners come from ganache for spending test ether
 contract("Land", ([owner1, owner2]) => {
   // we need these variables to satisfy constructor + deploy contract
   const NAME = "Dapp U Buildings";
   const SYMBOL = "DUB";
   const COST = web3.utils.toWei("1", "ether");
 
-  // to check if land = expected results
+  // declaringt vars to check if land = expected results
   let land, result;
 
   // before each test we deploy contract
@@ -28,7 +28,7 @@ contract("Land", ([owner1, owner2]) => {
 
   // first test is the deployment to
   //verify that vars are set to expectations
-  //"describe" runs many test described by "it"
+  //"describe" runs many test labled by "it"
   describe("Deployment", () => {
     //   takes in what it does + test function that calls name var
     it("returns contract name", async () => {
@@ -76,27 +76,27 @@ contract("Land", ([owner1, owner2]) => {
         result.owner1.should.equal(owner1);
       });
     });
-  });
-  //   when fail or should fail
-  describe("Failure", () => {
-    //fail if no money is sent for plot of land "1"
-    it("prevents mint with 0 value", async () => {
-      await land
-        .mint(1, { from: owner1, value: 0 })
-        .shpuld.be.rejectedWith(EVM_REVERT);
-    });
-    //fail bc id 100 does not exist
-    it("Prevents mint with invalid ID", async () => {
-      await land
-        .mint(100, { from: owner1, value: COST })
-        .should.be.rejectedWith(EVM_REVERT);
-    });
-    //   owner 2 cant buy a plot of land already brought
-    it("Prevents minting if already owned", async () => {
-      await land.mint(1, { from: owner1, value: COST });
-      await land
-        .mint(1, { from: owner2, value: COST })
-        .should.be.rejectedWith(EVM_REVERT);
+    //   when fail or should fail
+    describe("Failure", () => {
+      //fail if no money is sent for plot of land "1"
+      it("prevents mint with 0 value", async () => {
+        await land
+          .mint(1, { from: owner1, value: 0 })
+          .shpuld.be.rejectedWith(EVM_REVERT);
+      });
+      //fail bc id 100 does not exist
+      it("Prevents mint with invalid ID", async () => {
+        await land
+          .mint(100, { from: owner1, value: 1 })
+          .should.be.rejectedWith(EVM_REVERT);
+      });
+      //   owner 2 cant buy a plot of land already brought
+      it("Prevents minting if already owned", async () => {
+        await land.mint(1, { from: owner1, value: COST });
+        await land
+          .mint(1, { from: owner2, value: COST })
+          .should.be.rejectedWith(EVM_REVERT);
+      });
     });
   });
 
@@ -112,19 +112,19 @@ contract("Land", ([owner1, owner2]) => {
 
       it("Updates the owner address", async () => {
         result = await land.ownerOf(1);
-        result.should.equal(owner1);
+        result.should.equal(owner2);
       });
 
       it("Updates building details", async () => {
         result = await land.getBuilding(1);
-        result.owner.should.equal(owner1);
+        result.owner.should.equal(owner2);
       });
     });
 
     describe("failure", () => {
       it("Prevents transfers without ownership", async () => {
         await land
-          .transferFrom(1, { from: owner2 })
+          .transferFrom(owner1, owner2, 1, { from: owner2 })
           .should.be.rejectedWith(EVM_REVERT);
       });
 
