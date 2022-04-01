@@ -24,13 +24,21 @@ contract Land is ERC721 {
     Building[] public buildings;
 
     constructor(string memory _name, string memory _symbol, uint265 _cost ) ERC721(_name, _symbol) {
-        // assigning constructor var to struct Building var 
         cost = _cost;
-        // accessing buildings array var 
         buildings.push(
-            //Defining Building with struct values.
-            //Address = 0x0 bc nobody owns it
             Building("City Hall", address(0x0), 0, 0, 0, 10, 10, 10)
+        );
+         buildings.push(
+            Building("Park", address(0x0), 0, 10, 0, 10, 5, 5)
+        ); 
+        buildings.push(
+            Building("School", address(0x0), 0, -10, 0, 10, 5, 5)
+        ); 
+        buildings.push(
+            Building("Gym", address(0x0), 10, 0, 0, 5, 25, 5)
+        ); 
+        buildings.push(
+            Building("Vegan Restaurant", address(0x0), -10, 0, 0, 5, 25, 5)
         );
     }
 
