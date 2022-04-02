@@ -4,6 +4,9 @@
   "private": true,
   "dependencies": {
     "@openzeppelin/contracts": "^4.5.0",
+    "@react-three/cannon": "^6.0.0",
+    "@react-three/drei": "^9.0.2",
+    "@react-three/fiber": "^8.0.7",
     "@testing-library/jest-dom": "^5.16.3",
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
@@ -11,6 +14,7 @@
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-scripts": "5.0.0",
+    "three": "^0.139.2",
     "web-vitals": "^2.1.4",
     "web3": "^1.7.1"
   },
