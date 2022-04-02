@@ -25,4 +25,4 @@ const Navbar = ({ web3Handler, account }) => {
   )
 }
 
-export default Navbar
+export default Navbar;

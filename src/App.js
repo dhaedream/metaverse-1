@@ -62,6 +62,16 @@ function App() {
     }
   };
 
+  //metamask login as referenced in Navbar
+  const web3Handler = async () => {
+    if (web3) {
+      const accounts = await window.ethereum.request({
+        metid: "eth_requestAccounts",
+      });
+      setAccount(accounts[0]);
+    }
+  };
+
   return (
     <div className="">
       <p>DAPPing It !!</p>
