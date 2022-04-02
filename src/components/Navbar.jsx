@@ -9,7 +9,7 @@ const Navbar = ({ web3Handler, account }) => {
         Dapp University
       </a>
 
-      {accoount ? (
+      {account ? (
         <a
           href={`${""}/address/${account}`}
           target="_blank"

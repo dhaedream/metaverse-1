@@ -3,6 +3,14 @@ import Web3 from "web3";
 import { useState, useEffect } from "react";
 // all contract functions r contained in this file
 import Land from "./abis/Land.json";
+//3d platform
+import { Canvas } from "@react-three/fiber";
+//map zoom
+import { Sky, MapControls } from "@react-three/drei";
+//physics for buildings
+import { Physics } from "@react-three/cannon";
+
+import Navbar from "./components/Navbar";
 
 function App() {
   // Contract & Contract States
@@ -74,7 +82,7 @@ function App() {
 
   return (
     <div className="">
-      <p>DAPPing It !!</p>
+      <Navbar />
     </div>
   );
 }
